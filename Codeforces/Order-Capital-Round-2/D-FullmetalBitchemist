@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ 
+void solve() {
+    int n;
+    if (!(cin >> n)) return;
+    string s;
+    cin >> s;
+ 
+    vector<int> p(n + 1, 0);
+    vector<long long> freq(3, 0);
+    freq[0] = 1;
+    for (int i = 0; i < n; ++i) {
+        int val = (s[i] == '0' ? 1 : 2);
+        p[i + 1] = (p[i] + val) % 3;
+        freq[p[i + 1]]++;
+    }
+ 
+    long long total_subs = (1LL * n * (n + 1)) / 2;
+    long long zero_sum_subs = 0;
+    for (int i = 0; i < 3; ++i) {
+        zero_sum_subs += (freq[i] * (freq[i] - 1)) / 2;
+    }
+    long long ans = total_subs - zero_sum_subs;
+ 
+    long long alt_len = 1;
+    for (int i = 1; i <= n; ++i) {
+        if (i < n && s[i] != s[i - 1]) {
+            alt_len++;
+        } else {
+            if (alt_len >= 3) {
+                long long m = (alt_len - 1) / 2;
+                ans -= m * (alt_len - m - 1);
+            }
+            alt_len = 1;
+        }
+    }
+ 
+    cout << ans << "\n";
+}
+ 
+int main() {
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+ 
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
