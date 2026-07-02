@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        cin>>n;
+        vector<long long> a(n), b(n);
+        for(int j=0; j<n; ++j){
+            cin>>a[j];
+        }
+        for(int k=0; k<n; ++k){
+            cin>>b[k];
+        }
+        long long ps=0;
+        bool possible=true;
+        for(int q=0; q<n; ++q){
+            ps+= (b[q]-a[q]);
+        if(ps<0){
+            possible = false;
+        }
+     }   
+     if(possible==true){
+    cout<<"YES"<<'\n';
+        }
+     else{cout<<"NO"<<'\n';
+        }
+    }
+}
