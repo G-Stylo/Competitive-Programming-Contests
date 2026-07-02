@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+void solve() {
+    int n;
+    if (!(cin >> n)) return;
+    vector<long long> a(n), b(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
+    }
+ 
+    vector<long long> sorted_a = a;
+    sort(sorted_a.begin(), sorted_a.end());
+    vector<long long> sorted_b = b;
+    sort(sorted_b.begin(), sorted_b.end());
+ 
+    for (int i = 0; i < n; i++) {
+        if (sorted_a[i] > sorted_b[i]) {
+            cout << -1 << "\n";
+            return;
+        }
+    }
+ 
+    vector<int> available_indices;
+    for (int i = 0; i < n; i++) {
+        available_indices.push_back(i + 1);
+    }
+ 
+    vector<int> p(n);
+    for (int i = 0; i < n; i++) {
+        for (auto it = available_indices.begin(); it != available_indices.end(); ++it) {
+            int b_idx = *it - 1;
+            if (b[b_idx] >= a[i]) {
+                p[i] = *it;
+                available_indices.erase(it);
+                break;
+            }
+        }
+    }
+ 
+    long long total_swaps = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (p[i] > p[j]) {
+                total_swaps++;
+            }
+        }
+    }
+    cout << total_swaps << "\n";
+}
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
