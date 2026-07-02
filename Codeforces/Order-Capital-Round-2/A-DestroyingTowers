@@ -1,7 +1,3 @@
-/* 
-    Difficulty: 800
-*/
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
