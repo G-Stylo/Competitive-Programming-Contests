@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+        int n;
+        cin >> n;
+        vector<long long> a(n);
+        vector<int> p1(n + 1, 0), p12(n + 1, 0);
+        for (int j = 0; j < n; j++) {
+            cin >> a[j];
+            p1[j + 1] = p1[j] + (a[j] == 1);
+            p12[j + 1] = p12[j] + (a[j] <= 2);
+        }
+        vector<int> suf_max(n + 1, -1e9);
+        for (int j = n - 1; j >= 2; j--) {
+            suf_max[j] = max(suf_max[min(j + 1, n)], 2 * p12[j] - j);
+        }
+ 
+        bool possible = false;
+        for (int p1_pos = 1; p1_pos <= n - 2; p1_pos++) {
+            if (2 * p1[p1_pos] >= p1_pos) {
+                int target = 2 * p12[p1_pos] - p1_pos;
+                if (suf_max[p1_pos + 1] >= target) {
+                    possible = true;
+                    break;
+                }
+            }
+        }
+ 
+        if (possible) cout << "YES" << endl;
+        else cout << "NO" << endl;
+    }
+    return 0;
+}
