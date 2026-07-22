@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+        int n, k;
+        cin >> n >> k;
+        vector<long long> a(n);
+        for (int j = 0; j < n; j++) {
+            cin >> a[j];
+        }
+ 
+        vector<int> s;
+        if (n > 0) {
+            int cur_len = 1;
+            for (int j = 1; j < n; j++) {
+                if (a[j] == a[j - 1]) cur_len++;
+                else {
+                    s.push_back(cur_len);
+                    cur_len = 1;
+                }
+            }
+            s.push_back(cur_len);
+        }
+ 
+        map<int, int> counts;
+        for (int val : s) {
+            counts[val]++;
+        }
+ 
+        long long current_S = n;
+        int current_m = s.size();
+        int reachable_count = 0;
+ 
+        for (auto const& [val, freq] : counts) {
+            if ((k - current_S) % current_m == 0) {
+                long long V = (k - current_S) / current_m;
+                if (V >= -(val - 1)) {
+                    reachable_count++;
+                }
+            }
+            current_S -= (long long)val * freq;
+            current_m -= freq;
+        }
+ 
+        cout << reachable_count << endl;
+ 
+        for (int j = 0; j < 4; j++) {
+        }    
+    }
+}
