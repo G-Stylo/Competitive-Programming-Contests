@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+        int k;
+        cin >> k;
+        int x = 0;
+        bool y = false;
+        for (int j = 0; j < k; j++) {
+            long long c;
+            cin >> c;
+            if (c >= 3) y = true;
+            if (c >= 2) x++;
+        }
+        if (y || x >= 2) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+}
