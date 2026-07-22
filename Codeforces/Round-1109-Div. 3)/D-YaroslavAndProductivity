@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+ 
+    int t;
+    if (cin >> t) {
+        for (int i = 0; i < t; ++i) {
+            int n, m;
+            cin >> n >> m;
+            vector<long long> a(n);
+            for (int j = 0; j < n; ++j) {
+                cin >> a[j];
+            }
+            vector<long long> pref(n + 1, 0);
+            for (int j = 0; j < n; ++j) {
+                pref[j + 1] = pref[j] + a[j];
+            }
+            vector<int> b(m);
+            for (int j = 0; j < m; ++j) {
+                cin >> b[j];
+            }
+            sort(b.begin(), b.end());
+            
+            long long max_productivity = 0;
+            int last_pos = 0;
+            for (int j = 0; j < m; ++j) {
+                long long segment_sum = pref[b[j]] - pref[last_pos];
+                max_productivity += abs(segment_sum);
+                last_pos = b[j];
+            }
+            max_productivity += (pref[n] - pref[last_pos]);
+            cout << max_productivity << '\n';
+        }
+    }
+    return 0;
+}
